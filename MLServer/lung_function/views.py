@@ -3,8 +3,10 @@ from rest_framework import status
 from rest_framework.views import APIView
 from rest_framework.response import Response
 
-from lung_function.serializers import LungEquationSerializer, LungInputValuesSerializer
+from lung_function.serializers import LungEquationSerializer, LungInputValuesSerializer, LungOutputValuesSeralizer
+from lung_function.objects import LungOutputValues
 from lung_function.models import LungEquation
+from lung_function.computations import ExtractValues
 
 
 class LungEquationView(APIView):
@@ -38,8 +40,15 @@ class LungEquationDetailView(APIView):
 class LungValuesView(APIView):
 
     def post(self, request):
-        serializer = LungInputValuesSerializer(data=request.data)
+        eng_curve = request.data["eng_curve"]
+        frm_times = request.data["frm_times"]
+        
         eq_pef = get_object_or_404(LungEquation, target_value='pef')
-        if serializer.is_valid():
-            return Response(serializer.data)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        eq_fef = get_object_or_404(LungEquation, target_value='fef')
+        eq_fvc = get_object_or_404(LungEquation, target_value='fvc')
+        eq_fev1 = get_object_or_404(LungEquation, target_value='fev1')
+
+        PEF, FVC, FEV1, flow_curve, volumes = ExtractValues.getOutputValues(eq_pef, eq_fef, eq_fvc, eq_fev1, eng_curve, frm_times)
+        output_data = LungOutputValues(PEF, FVC, FEV1, flow_curve, volumes)
+
+        return Response(LungOutputValuesSeralizer(output_data).data)

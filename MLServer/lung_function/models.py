@@ -2,6 +2,7 @@
 from __future__ import unicode_literals
 
 from django.db import models
+import ast
 
 # Create your models here.
 
@@ -34,6 +35,9 @@ class LungEquation(models.Model):
     target_value = models.CharField(max_length=255)
     order = models.IntegerField()
     params = ListField()
+    learning_rate = models.FloatField(null=True)
+    iterations = models.IntegerField(null=True)
+    error = models.FloatField(null=True)
 
 # class LungInputValues(models.Model):
 #     input_values = ListField()
