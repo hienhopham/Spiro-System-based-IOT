@@ -1,4 +1,5 @@
 from django.shortcuts import get_object_or_404
+from django.http import JsonResponse
 from rest_framework import status
 from rest_framework.views import APIView
 from rest_framework.response import Response
@@ -51,4 +52,4 @@ class LungValuesView(APIView):
         PEF, FVC, FEV1, flow_curve, volumes = ExtractValues.getOutputValues(eq_pef, eq_fef, eq_fvc, eq_fev1, eng_curve, frm_times)
         output_data = LungOutputValues(PEF, FVC, FEV1, flow_curve, volumes)
 
-        return Response(LungOutputValuesSeralizer(output_data).data)
+        return JsonResponse(LungOutputValuesSeralizer(output_data).data)

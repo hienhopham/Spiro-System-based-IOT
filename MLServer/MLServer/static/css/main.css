@@ -148,6 +148,18 @@ iframe {
   line-height: 1.5;
 }
 
+.error {
+  text-align: center;
+  color: red;
+}
+
+div.error {
+  height: 20px;
+  margin-bottom: 5px;
+}
+
+
+
 
 /*//////////////////////////////////////////////////////////////////
 [ login ]*/
