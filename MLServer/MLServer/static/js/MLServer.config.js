@@ -23,6 +23,12 @@ angular
           controller: 'HomeController',
           controllerAs: 'vm',
           templateUrl: '/static/templates/home.html'
+        })
+        .state('home.lung', {
+          url:'/lung-function',
+          controller: 'LungFunctionController',
+          controllerAs: 'vm',
+          templateUrl: '/static/templates/lung-function/lung-function.html'
         });
 
       $urlRouterProvider.otherwise('/');

@@ -47,10 +47,7 @@ function Authentication($http, $cookies) {
   
       window.location = '/home';
     }
-  
-    // function loginErrorFn(data, status, headers, config) {
-    //   console.error('Epic failure!');
-    // }
+
   }
 
   function logout() {
