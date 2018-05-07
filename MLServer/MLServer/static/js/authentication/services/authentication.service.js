@@ -45,7 +45,7 @@ function Authentication($http, $cookies) {
     function loginSuccessFn(data, status, headers, config) {
       Authentication.setAuthenticatedAccount(data.data);
   
-      window.location = '/home';
+      window.location = '/home/lung-function';
     }
 
   }
@@ -89,7 +89,7 @@ function Authentication($http, $cookies) {
   }
 
   function isAuthenticatedURL(url) {
-    var allow_url = ['/', '/login/', '/register'];
+    var allow_url = ['/', '/login', '/register'];
 
     if(allow_url.indexOf(url) == -1) {
       return true;

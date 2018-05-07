@@ -4,7 +4,7 @@ angular
   .module('MLServer')
   .controller('LungFunctionController', LungFunctionController);
 
-HomeController.$inject = ['CHARTS'];
+LungFunctionController.$inject = ['CHARTS'];
 
 function LungFunctionController(CHARTS) {
 

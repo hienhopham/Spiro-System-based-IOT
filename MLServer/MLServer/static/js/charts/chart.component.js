@@ -3,8 +3,7 @@
 angular.module('MLServer')
   .component('chart', {
     bindings: {
-      idChart: '@',
-      name: '@'
+      chart: '<'
     },
     controller: 'chartController',
     controllerAs: 'vm',

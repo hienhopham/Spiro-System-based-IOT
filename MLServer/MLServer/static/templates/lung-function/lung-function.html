@@ -8,7 +8,10 @@
         <a class="nav-link" data-toggle="pill" href="#{{vm.charts.fef.idTab}}">FEF</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="#">Link</a>
+        <a class="nav-link" data-toggle="pill" href="#{{vm.charts.fvc.idTab}}">FVC</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" data-toggle="pill" href="#{{vm.charts.fev1.idTab}}">FEV1</a>
       </li>
 
     </ul>
@@ -16,10 +19,16 @@
   </div>
   <div class="col-sm-10 tab-content">
     <div id="{{vm.charts.pef.idTab}}" class="container tab-pane active">
-        <chart id-chart="{{vm.charts.pef.idChart}}" name="{{vm.charts.pef.name}}"></chart>
+      <chart chart="vm.charts.pef"></chart>
     </div>
     <div id="{{vm.charts.fef.idTab}}" class="container tab-pane fade">
-        <chart id-chart="{{vm.charts.fef.idChart}}" name="fef"></chart>
+      <chart chart="vm.charts.fef"></chart>
+    </div>
+    <div id="{{vm.charts.fvc.idTab}}" class="container tab-pane fade">
+      <chart chart="vm.charts.fvc"></chart>
+    </div>
+    <div id="{{vm.charts.fev1.idTab}}" class="container tab-pane fade">
+      <chart chart="vm.charts.fev1"></chart>
     </div>
   </div>
 </div>

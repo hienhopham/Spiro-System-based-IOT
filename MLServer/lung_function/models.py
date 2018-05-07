@@ -39,5 +39,22 @@ class LungEquation(models.Model):
     iterations = models.IntegerField(null=True)
     error = models.FloatField(null=True)
 
-# class LungInputValues(models.Model):
-#     input_values = ListField()
+class Dataset(models.Model):
+    input_value = models.FloatField()
+    output_value = models.FloatField()
+    trained = models.BooleanField()
+
+    class Meta:
+        abstract = True
+
+class PEF(Dataset):
+    pass
+
+class FEF(Dataset):
+    pass
+
+class FVC(Dataset):
+    pass
+
+class FEV1(Dataset):
+    pass

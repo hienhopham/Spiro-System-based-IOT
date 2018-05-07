@@ -31,7 +31,7 @@ angular
           templateUrl: '/static/templates/lung-function/lung-function.html'
         });
 
-      $urlRouterProvider.otherwise('/');
+      $urlRouterProvider.otherwise('/home');
 
       $locationProvider.html5Mode(true);
       $locationProvider.hashPrefix('');
