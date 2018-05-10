@@ -27,11 +27,13 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
-    # 'rest_framework.authtoken',
+    'rest_framework_nested',
     'MLServer',
     'rest_auth',
     'django.contrib.sites',
-    'lung_function'
+    'lung_function',
+    'authentication',
+    'compressor'
 ]
 
 MIDDLEWARE = [
@@ -40,6 +42,7 @@ MIDDLEWARE = [
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
+    'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
@@ -49,7 +52,7 @@ ROOT_URLCONF = 'MLServer.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.normpath(os.path.join(os.path.abspath(os.path.dirname(__file__)), 'templates'))],
+        'DIRS': [os.path.normpath(os.path.join(os.path.abspath(os.path.dirname(__file__)), 'static/templates'))],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -115,28 +118,28 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.10/howto/static-files/
 
 STATIC_URL = '/static/'
+STATIC_ROOT = 'staticfiles'
+
 STATICFILES_DIRS = (
     os.path.normpath(os.path.join(os.path.abspath(os.path.dirname(__file__)), 'static')),
-    # Put strings here, like "/home/html/static" or "C:/www/django/static".
-    # Always use forward slashes, even on Windows.
-    # Don't forget to use absolute paths, not relative paths.
 )
 
-# Configure the JWTs to expire after 1 hour, and allow users to refresh near-expiration tokens
-JWT_AUTH = {
-    'JWT_EXPIRATION_DELTA': datetime.timedelta(hours=1),
-    'JWT_ALLOW_REFRESH': True,
-}
+STATICFILES_FINDERS = (
+    'django.contrib.staticfiles.finders.FileSystemFinder',
+    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+    'compressor.finders.CompressorFinder',
+)
 
-# Make JWT Auth the default authentication mechanism for Django
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
-        'rest_framework.authentication.BasicAuthentication',
         'rest_framework.authentication.SessionAuthentication',
-        'rest_framework_jwt.authentication.JSONWebTokenAuthentication'
     ),
 }
 
 # Enables django-rest-auth to use JWT tokens instead of regular tokens.
 REST_USE_JWT = True
 SITE_ID = 1
+
+LOGIN_REDIRECT_URL = 'home/lung-function'
+
+AUTH_USER_MODEL = 'authentication.Account'

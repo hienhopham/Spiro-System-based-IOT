@@ -1,5 +1,6 @@
 import numpy as np
 
+import learning
 
 class ExtractValues():
 
@@ -7,21 +8,6 @@ class ExtractValues():
     def computeVolume(flr1, flr2, delta_t):
         a = float(flr2 - flr1) / float(delta_t)
         return (flr1 * delta_t + a * (delta_t**2) / 2)
-
-    @staticmethod
-    def predict_2(x, params):
-        params = np.array(eval(params))
-        w = params[0]
-        u = params[1]
-        b = params[2]
-
-        if(isinstance(x, (list, np.ndarray))):
-            y_predict = []
-            for i in x:
-                y_predict.append(w * i * i + u * i + b)
-        else:
-            y_predict = w * x * x + u * x + b
-        return y_predict
 
     @classmethod
     def getInputValues(cls, pef_model, fef_model, eng_curve, frm_times):
@@ -55,10 +41,10 @@ class ExtractValues():
         eng_50 = eng_curve[i_50]
         eng_75 = eng_curve[i_75]
 
-        PEF = cls.predict_2(max_eng, pef_model.params)
-        FEF_25 = cls.predict_2(eng_25, fef_model.params)
-        FEF_50 = cls.predict_2(eng_50, fef_model.params)
-        FEF_75 = cls.predict_2(eng_75, fef_model.params)
+        PEF = learning.predict_2(max_eng, pef_model.params)
+        FEF_25 = learning.predict_2(eng_25, fef_model.params)
+        FEF_50 = learning.predict_2(eng_50, fef_model.params)
+        FEF_75 = learning.predict_2(eng_75, fef_model.params)
 
         times = np.array([0, frm_times[i_25], frm_times[i_max], frm_times[i_50], frm_times[i_75], frm_times[frm_times.size - 1]])
         flow_rates = np.array([0, FEF_25, PEF, FEF_50, FEF_75, 0])
@@ -75,9 +61,9 @@ class ExtractValues():
         frm_times = np.array(frm_times)
         max_eng, total_volume = cls.getInputValues(pef_model, fef_model, eng_curve, frm_times)
 
-        PEF = cls.predict_2(max_eng, pef_model.params)
-        FVC = cls.predict_2(total_volume, fvc_model.params)
-        FEV1 = cls.predict_2(total_volume, fev1_model.params)
+        PEF = learning.predict_2(max_eng, pef_model.params)
+        FVC = learning.predict_2(total_volume, fvc_model.params)
+        FEV1 = learning.predict_2(total_volume, fev1_model.params)
 
         flow_curve = eng_curve * PEF / max_eng
         volumes = np.linspace(0, FVC, eng_curve.size)

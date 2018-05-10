@@ -1,0 +1,6 @@
+(1,{ "_id" : 1 , "name" : "LePhuc" , "dayOfBirth" : "22-02-1995" , "weight" : "80" , "age" : "23" , "heght" : "170" , "location" : "B" , "smokingStatus" : "y"})
+(2,{ "_id" : "2" , "name" : "LePhuc" , "dayOfBirth" : "22-02-1995" , "weight" : "80" , "age" : "23" , "heght" : "170" , "location" : "B" , "smokingStatus" : "y"})
+(3,{ "_id" : "3" , "name" : "LePhuc" , "dayOfBirth" : "22-02-1995" , "weight" : "80" , "age" : "23" , "heght" : "170" , "location" : "B" , "smokingStatus" : "y"})
+(4,{ "_id" : "4" , "name" : "LePhuc" , "dayOfBirth" : "22-02-1995" , "weight" : "80" , "age" : "23" , "heght" : "170" , "location" : "B" , "smokingStatus" : "y"})
+(5,{ "_id" : "5" , "name" : "LePhuc" , "dayOfBirth" : "22-02-1995" , "weight" : "80" , "age" : "23" , "heght" : "170" , "location" : "B" , "smokingStatus" : "y" , "gender" : "male"})
+(6,{ "_id" : "6" , "name" : "LePhuc" , "dayOfBirth" : "22-02-1995" , "weight" : "80" , "age" : "23" , "heght" : "170" , "location" : "B" , "smokingStatus" : "y" , "gender" : "male"})

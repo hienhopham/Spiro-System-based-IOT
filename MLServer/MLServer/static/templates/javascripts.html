@@ -1,0 +1,31 @@
+{% load compress %}
+{% load staticfiles %}
+
+{% compress js %}
+
+<script src="{% static 'assets/jquery/dist/jquery.min.js' %}"></script>
+<script src="{% static 'assets/bootstrap/dist/js/bootstrap.min.js' %}"></script>
+<script src="{% static 'assets/angular/angular.min.js' %}"></script>
+<script src="{% static 'assets/angular-ui-router/release/angular-ui-router.min.js' %}"></script>
+<script src="{% static 'assets/angular-cookies/angular-cookies.min.js' %}"></script>
+<script src="{% static 'assets/highcharts/highcharts.js' %}"></script>
+<script src="{% static 'assets/highcharts/modules/exporting.js' %}"></script>
+
+<script type="text/javascript" src="{% static 'js/MLServer.module.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/authentication/authentication.module.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/MLServer.config.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/MLServer.run.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/authentication/controllers/register.controller.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/authentication/controllers/login.controller.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/authentication/services/authentication.service.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/controllers/home.controller.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/controllers/lung-function.controller.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/charts/chart.controller.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/charts/chart.component.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/charts/chart.service.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/charts/chart.constants.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/equations/equation.controller.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/equations/equation.component.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/equations/equation.service.js' %}"></script>
+
+{% endcompress %}

@@ -4,5 +4,5 @@ from lung_audio_data.views import AudioFileProccessingView
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^lung_audio_data/api/get_values', AudioFileProccessingView.as_view())
+    url(r'^lung-audio-data/api/get-values', AudioFileProccessingView.as_view())
 ]

@@ -1,12 +1,15 @@
 from django.shortcuts import get_object_or_404
+from django.http import JsonResponse
 from rest_framework import status
 from rest_framework.views import APIView
 from rest_framework.response import Response
 
-from lung_function.serializers import LungEquationSerializer, LungInputValuesSerializer, LungOutputValuesSeralizer
-from lung_function.objects import LungOutputValues
-from lung_function.models import LungEquation
-from lung_function.computations import ExtractValues
+from .serializers import LungEquationSerializer, LungInputValuesSerializer, LungOutputValuesSerializer, PEFSerializer, FEFSerializer, FVCSerializer, FEV1Serializer, DataEquationVisualizationSerializer
+from .objects import LungOutputValues
+from .models import LungEquation, PEF, FEF, FVC, FEV1
+from .computations import ExtractValues
+
+import learning
 
 
 class LungEquationView(APIView):
@@ -37,6 +40,13 @@ class LungEquationDetailView(APIView):
         eq.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
 
+    def post(self, request):
+        target_value = request.data["target_value"]
+        eq = get_object_or_404(LungEquation, target_value=target_value)
+        serializer = LungEquationSerializer(eq)
+
+        return Response(serializer.data)
+
 class LungValuesView(APIView):
 
     def post(self, request):
@@ -51,4 +61,49 @@ class LungValuesView(APIView):
         PEF, FVC, FEV1, flow_curve, volumes = ExtractValues.getOutputValues(eq_pef, eq_fef, eq_fvc, eq_fev1, eng_curve, frm_times)
         output_data = LungOutputValues(PEF, FVC, FEV1, flow_curve, volumes)
 
-        return Response(LungOutputValuesSeralizer(output_data).data)
+        return JsonResponse(LungOutputValuesSerializer(output_data).data)
+
+class DatasetView(APIView):
+
+    model = None
+    serializer = None
+
+    def post(self, request):
+        eqs = self.model.objects.all()
+        serializers = self.serializer(eqs, many=True)
+
+        return Response(serializers.data)
+
+class PEFView(DatasetView):
+    model = PEF
+    serializer = PEFSerializer
+
+class FEFView(DatasetView):
+    model = FEF
+    serializer = FEFSerializer
+
+class FVCView(DatasetView):
+    model = FVC
+    serializer = FVCSerializer
+
+class FEV1View(DatasetView):
+    model = FEV1
+    serializer = FEV1Serializer
+
+class EquationVisualizationView(APIView):
+
+    def post(self, req):
+        eq = get_object_or_404(LungEquation, target_value=req.data["target_value"])
+        lower_bound = float(req.data["lower_bound"])
+        higher_bound = float(req.data["higher_bound"])
+        num = int(req.data["num"])
+
+        dataEquationVisualization = learning.getDataEquationVisualization(eq.params, lower_bound, higher_bound, num)
+        serializers = DataEquationVisualizationSerializer(dataEquationVisualization, many=True)
+
+        return Response(serializers.data)
+
+class TrainingView(APIView):
+
+    def post(self, req):
+        new_learning_rate = req.data["new_learning_rate"]
