@@ -2,7 +2,8 @@ import os
 import time
 import numpy as np
 import tensorflow as tf
-import utils
+
+import learning
 
 def readData(dataset):
     input_values = [float(obj.input_value) for obj in dataset]
@@ -12,7 +13,7 @@ def readData(dataset):
 
     return dataset
     
-def traning(dataset, learningRate, iterations):
+def training(dataset, learningRate, iterations):
     n_samples = len(dataset)
 
     X = tf.placeholder(tf.float32, name='X')
@@ -33,7 +34,7 @@ def traning(dataset, learningRate, iterations):
 
         for i in range(iterations):
             total_loss = 0
-            for x, y in data:
+            for x, y in dataset:
                 _, loss_ = sess.run([optimizer, loss], feed_dict={X: x, Y:y})
                 total_loss += loss_
 
@@ -41,3 +42,15 @@ def traning(dataset, learningRate, iterations):
         writer.close()
         
         w_out, u_out, b_out = sess.run([w, u, b])
+        mse = total_loss/n_samples
+
+    return w_out, u_out, b_out, mse
+
+def getTestError(w_out, u_out, b_out, test_dataset):
+    n_samples = len(test_dataset)
+    x_test = test_dataset[:,0]
+    y_test = test_dataset[:,1]
+
+    error = np.sum(np.abs(y_test - learning.predict_2(x_test, str([w_out, u_out, b_out])))*100/y_test)/n_samples
+
+    return error

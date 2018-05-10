@@ -18,13 +18,13 @@
         <tbody>
           <tr id='addr0'>
             <td>
-              <input type="text" placeholder='w' class="form-control" value="{{vm.equation.params[0]}}"/>
+              <input type="text" placeholder='w' class="form-control" ng-model="vm.params[0]" disabled/>
             </td>
             <td>
-              <input type="text" placeholder='u' class="form-control" value="{{vm.equation.params[1]}}"/>
+              <input type="text" placeholder='u' class="form-control" ng-model="vm.params[1]" disabled/>
             </td>
             <td>
-              <input type="text" placeholder='v' class="form-control" value="{{vm.equation.params[2]}}"/>
+              <input type="text" placeholder='v' class="form-control" ng-model="vm.params[2]" disabled/>
             </td>
           </tr>
           <tr id='addr1'></tr>
@@ -47,13 +47,13 @@
         <tbody>
           <tr id='addr0'>
             <td>
-              <input type="text" placeholder='Order' class="form-control" value="{{vm.equation.order}}"/>
+              <input type="text" placeholder='Order' class="form-control" value="{{vm.equation.order}}" disabled/>
             </td>
             <td>
               <input type="text" placeholder='Learning rate' class="form-control" ng-model="vm.new_learning_rate"/>
             </td>
             <td>
-              <input type="text" placeholder='MSE' class="form-control" value="{{vm.equation.ms_error}}"/>
+              <input type="text" placeholder='MSE' class="form-control" ng-model="vm.ms_error" disabled/>
             </td>
           </tr>
           <tr id='addr1'></tr>
@@ -69,28 +69,45 @@
               Proportion (Train - Test)
             </th>
             <th class="text-center">
-              Error on test set
+              Error on test set (%)
             </th>
           </tr>
         </thead>
         <tbody>
           <tr id='addr0'>
             <td>
-              <input type="text" placeholder='Dataset size' class="form-control" value="{{vm.equation.dataset_size}}"/>
+              <input type="text" placeholder='Dataset size' class="form-control" value="{{vm.equation.dataset_size}}" disabled/>
             </td>
             <td>
-              <input type="text" placeholder='Proportion' class="form-control" value="{{vm.equation.proportion}}"/>
+              <input type="text" placeholder='Proportion' class="form-control" value="{{vm.equation.proportion}}" disabled/>
             </td>
             <td>
-              <input type="text"  placeholder='Error' class="form-control" value="{{vm.equation.test_err}}"/>
+              <input type="text"  placeholder='Error' class="form-control" ng-model="vm.test_err" disabled/>
+            </td>
+          </tr>
+          <tr id='addr1'></tr>
+        </tbody>
+      </table>
+      <table class="table table-bordered table-hover" id="tab_logic">
+        <thead>
+          <tr>
+            <th class="text-center">
+              Iterations
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr id='addr0'>
+            <td>
+              <input type="text" placeholder='Dataset size' class="form-control" ng-model="vm.iterations"/>
             </td>
           </tr>
           <tr id='addr1'></tr>
         </tbody>
       </table>
     </div>
+    <div class="error col-md-12 column">{{vm.error}}</div>
     <button type="button" class="btn btn-primary center" ng-click="vm.train()">Train</button>
-    <button type="button" class="btn btn-success center">Save</button>
   </div>
 
 </div>
