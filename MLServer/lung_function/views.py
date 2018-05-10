@@ -10,6 +10,8 @@ from .models import LungEquation, PEF, FEF, FVC, FEV1
 from .computations import ExtractValues
 
 import learning
+import poly_regres as poly
+import math
 
 
 class LungEquationView(APIView):
@@ -103,7 +105,44 @@ class EquationVisualizationView(APIView):
 
         return Response(serializers.data)
 
-class TrainingView(APIView):
+class TrainingView(DatasetView):
+
+    model = None
 
     def post(self, req):
-        new_learning_rate = req.data["new_learning_rate"]
+        new_learning_rate = float(req.data["new_learning_rate"])
+        new_iterations = int(req.data["new_iterations"])
+        lower_bound = float(req.data["lower_bound"])
+        higher_bound = float(req.data["higher_bound"])
+        num = int(req.data["num"])
+
+        trained_data = self.model.objects.filter(trained=True)
+        test_data = self.model.objects.filter(trained=False)
+
+        trained_dataset = poly.readData(trained_data)
+        test_dataset = poly.readData(test_data)
+        w_out, u_out, b_out, mse = poly.training(trained_dataset, new_learning_rate, new_iterations)
+
+        if (math.isnan(w_out)):
+            return Response({"error":"Bad parameters."})
+        elif (len(test_dataset) == 0):
+            test_err = 0
+        else:
+            test_err = poly.getTestError(w_out, u_out, b_out, test_dataset)
+    
+        dataEquationVisualization = learning.getDataEquationVisualization(str([w_out, u_out, b_out]), lower_bound, higher_bound, num)
+        serializers = DataEquationVisualizationSerializer(dataEquationVisualization, many=True)
+
+        return Response({"regressData":serializers.data, "mse":mse, "test_err":test_err, "params":[w_out, u_out, b_out]})
+
+class PEFTrainingView(TrainingView):
+    model = PEF
+
+class FEFTrainingView(TrainingView):
+    model = FEF
+
+class FVCTrainingView(TrainingView):
+    model = FVC
+
+class FEV1TrainingView(TrainingView):
+    model = FEV1

@@ -9,7 +9,8 @@ ChartService.$inject = ['$http'];
 function ChartService($http) {
 
   var ChartService = {
-    getDataset: getDataset
+    getDataset: getDataset,
+    convertData: convertData
   };
   return ChartService;
 

@@ -3,7 +3,7 @@
 angular.module('MLServer')
   .component('equation', {
     bindings: {
-      targetValue: '@',
+      chart: '<',
       onUpdate: '&'
     },
     controller: 'equationController',

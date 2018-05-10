@@ -41,13 +41,15 @@ function chartController($q, $scope, $timeout, ChartService, CHARTS) {
   function $onInit() {
 
     $q.all([getScatterData(), getRegressData()]).then(function (data) {
+
+      self.scatterData = data[0];
       buildChart(self.chart.idChart, data[0].trainedData, data[0].chartData, data[1].chartData);
     });
   }
 
-  function updateChart(learningRate) {
+  function updateChart(regressData) {
 
-    buildChart(self.chart.idChart, [], [], []);
+    buildChart(self.chart.idChart, self.scatterData.trainedData, self.scatterData.chartData, regressData);
   }
 
   function buildChart(idChart, scatterTrainedData, scatterTestData, regressData) {
