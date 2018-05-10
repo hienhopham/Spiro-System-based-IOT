@@ -1,0 +1,96 @@
+<div class="info-table">
+  <div class="row clearfix">
+    <div class="col-md-12 column">
+      <table class="table table-bordered table-hover" id="tab_logic">
+        <thead>
+          <tr>
+            <th class="text-center">
+              w
+            </th>
+            <th class="text-center">
+              u
+            </th>
+            <th class="text-center">
+              v
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr id='addr0'>
+            <td>
+              <input type="text" placeholder='w' class="form-control" value="{{vm.equation.params[0]}}"/>
+            </td>
+            <td>
+              <input type="text" placeholder='u' class="form-control" value="{{vm.equation.params[1]}}"/>
+            </td>
+            <td>
+              <input type="text" placeholder='v' class="form-control" value="{{vm.equation.params[2]}}"/>
+            </td>
+          </tr>
+          <tr id='addr1'></tr>
+        </tbody>
+      </table>
+      <table class="table table-bordered table-hover" id="tab_logic">
+        <thead>
+          <tr>
+            <th class="text-center">
+              Order
+            </th>
+            <th class="text-center">
+              Learning rate
+            </th>
+            <th class="text-center">
+              Mean square error (MSE)
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr id='addr0'>
+            <td>
+              <input type="text" placeholder='Order' class="form-control" value="{{vm.equation.order}}"/>
+            </td>
+            <td>
+              <input type="text" placeholder='Learning rate' class="form-control" ng-model="vm.new_learning_rate"/>
+            </td>
+            <td>
+              <input type="text" placeholder='MSE' class="form-control" value="{{vm.equation.ms_error}}"/>
+            </td>
+          </tr>
+          <tr id='addr1'></tr>
+        </tbody>
+      </table>
+      <table class="table table-bordered table-hover" id="tab_logic">
+        <thead>
+          <tr>
+            <th class="text-center">
+              Dataset size
+            </th>
+            <th class="text-center">
+              Proportion (Train - Test)
+            </th>
+            <th class="text-center">
+              Error on test set
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr id='addr0'>
+            <td>
+              <input type="text" placeholder='Dataset size' class="form-control" value="{{vm.equation.dataset_size}}"/>
+            </td>
+            <td>
+              <input type="text" placeholder='Proportion' class="form-control" value="{{vm.equation.proportion}}"/>
+            </td>
+            <td>
+              <input type="text"  placeholder='Error' class="form-control" value="{{vm.equation.test_err}}"/>
+            </td>
+          </tr>
+          <tr id='addr1'></tr>
+        </tbody>
+      </table>
+    </div>
+    <button type="button" class="btn btn-primary center" ng-click="vm.train()">Train</button>
+    <button type="button" class="btn btn-success center">Save</button>
+  </div>
+
+</div>

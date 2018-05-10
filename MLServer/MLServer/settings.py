@@ -140,6 +140,6 @@ REST_FRAMEWORK = {
 REST_USE_JWT = True
 SITE_ID = 1
 
-LOGIN_REDIRECT_URL = 'home'
+LOGIN_REDIRECT_URL = 'home/lung-function'
 
 AUTH_USER_MODEL = 'authentication.Account'

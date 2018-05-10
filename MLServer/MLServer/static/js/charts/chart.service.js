@@ -22,18 +22,27 @@ function ChartService($http) {
 
     function errorFn(data, status, headers, config) {
       callback('Failure!');
-      return ;
+      return;
     }
   }
 
   function convertData(dataset) {
     var chartData = [];
+    var trainedData = [];
     var length = dataset.length;
 
-    dataset.forEach(function(row) {
-      chartData.push([row.input_value, row.output_value]); 
+    dataset.forEach(function (row) {
+      if (row.trained) {
+        trainedData.push([row.input_value, row.output_value]);
+      } else {
+        chartData.push([row.input_value, row.output_value]);
+      }
     });
 
-    return chartData;
+    return {
+      chartData: chartData,
+      trainedData: trainedData
+    };
   }
+
 }

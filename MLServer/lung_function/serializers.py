@@ -5,7 +5,7 @@ from lung_function.models import LungEquation, PEF, FEF, FVC, FEV1
 class LungEquationSerializer(serializers.ModelSerializer):
     class Meta:
         model = LungEquation
-        fields = 'id', 'target_value', 'order', 'params', 'learning_rate', 'iterations', 'error'
+        fields = 'id', 'target_value', 'order', 'params', 'learning_rate', 'iterations', 'ms_error', 'dataset_size', 'proportion', 'test_err'
 
 
 class LungInputValuesSerializer(serializers.Serializer):

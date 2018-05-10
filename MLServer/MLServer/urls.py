@@ -26,7 +26,7 @@ urlpatterns = [
     # url(r'^logout/$', auth_views.logout, {'next_page': '/login'}, name='logout'),
     # url(r'^home/$', TemplateView.as_view(template_name='home.html')),
     # # url(r'^user/api/$', UserView.as_view()),
-    url(r'^lung_function/', include('lung_function.urls')),
+    url(r'^lung-function/', include('lung_function.urls')),
     # url(r'^(?P<template_name>\w+)/$', SimpleStaticView.as_view(), name='example'),
     url(r'^api/v1/', include(router.urls)),
     url(r'^api/v1/auth/login/$', LoginView.as_view(), name='login'),

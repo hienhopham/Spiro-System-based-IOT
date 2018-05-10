@@ -37,7 +37,10 @@ class LungEquation(models.Model):
     params = ListField()
     learning_rate = models.FloatField(null=True)
     iterations = models.IntegerField(null=True)
-    error = models.FloatField(null=True)
+    ms_error = models.FloatField(null=True)
+    dataset_size = models.IntegerField(null=True)
+    proportion = models.FloatField(null=True)
+    test_err = models.FloatField(null=True)
 
 class Dataset(models.Model):
     input_value = models.FloatField()

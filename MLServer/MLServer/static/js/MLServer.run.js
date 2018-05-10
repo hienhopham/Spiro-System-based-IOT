@@ -9,9 +9,6 @@ angular
 
     $http.defaults.xsrfHeaderName = 'X-CSRFToken';
     $http.defaults.xsrfCookieName = 'csrftoken';
-    // console.log(Authentication.isAuthenticatedURL(currentURL));
-    // console.log(currentURL);
-    // console.log(Authentication.isAuthenticated());
 
     if (Authentication.isAuthenticatedURL(currentURL) && !Authentication.isAuthenticated()) {
       $location.url('/');

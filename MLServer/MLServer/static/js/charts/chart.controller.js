@@ -10,6 +10,7 @@ function chartController($q, $scope, $timeout, ChartService, CHARTS) {
   var self = this;
 
   self.$onInit = $onInit;
+  self.updateChart = updateChart;
 
   var getScatterData = function () {
     var deferred = $q.defer();
@@ -27,7 +28,7 @@ function chartController($q, $scope, $timeout, ChartService, CHARTS) {
   var getRegressData = function () {
     var deferred = $q.defer();
 
-    ChartService.getDataset('/lung_function/api/get_data_eq_visual', function (err, data) {
+    ChartService.getDataset('/lung-function/api/get-data-eq-visual', function (err, data) {
       if (err) {
         deferred.reject(err);
       }
@@ -40,11 +41,16 @@ function chartController($q, $scope, $timeout, ChartService, CHARTS) {
   function $onInit() {
 
     $q.all([getScatterData(), getRegressData()]).then(function (data) {
-      buildChart(self.chart.idChart, data[0], data[1]);
+      buildChart(self.chart.idChart, data[0].trainedData, data[0].chartData, data[1].chartData);
     });
   }
 
-  function buildChart(idChart, scatterData, regressData) {
+  function updateChart(learningRate) {
+
+    buildChart(self.chart.idChart, [], [], []);
+  }
+
+  function buildChart(idChart, scatterTrainedData, scatterTestData, regressData) {
 
     $timeout(function () {
       Highcharts.chart(idChart, {
@@ -63,6 +69,9 @@ function chartController($q, $scope, $timeout, ChartService, CHARTS) {
         },
         title: {
           text: self.chart.title
+        },
+        subtitle: {
+          text: 'y = w*x^2 + u*x + b'
         },
         legend: {
           layout: 'vertical',
@@ -84,8 +93,15 @@ function chartController($q, $scope, $timeout, ChartService, CHARTS) {
           enableMouseTracking: false
         }, {
           type: 'scatter',
-          name: 'Real values',
-          data: scatterData
+          name: 'Trained',
+          color: 'rgba(119, 152, 191)',
+          data: scatterTrainedData
+        },
+        {
+          type: 'scatter',
+          name: 'Test',
+          color: 'rgba(223, 83, 83, .7)',
+          data: scatterTestData
         }],
         responsive: {
           rules: [{

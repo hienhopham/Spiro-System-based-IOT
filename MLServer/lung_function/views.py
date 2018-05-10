@@ -40,6 +40,13 @@ class LungEquationDetailView(APIView):
         eq.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
 
+    def post(self, request):
+        target_value = request.data["target_value"]
+        eq = get_object_or_404(LungEquation, target_value=target_value)
+        serializer = LungEquationSerializer(eq)
+
+        return Response(serializer.data)
+
 class LungValuesView(APIView):
 
     def post(self, request):
@@ -96,3 +103,7 @@ class EquationVisualizationView(APIView):
 
         return Response(serializers.data)
 
+class TrainingView(APIView):
+
+    def post(self, req):
+        new_learning_rate = req.data["new_learning_rate"]
