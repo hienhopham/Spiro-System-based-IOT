@@ -1,2 +1,4 @@
 MLServer/static/assets
-DataProccessingHelper/lung_audio_data/spiro_wave 
+MLServer/graphs
+*.pyc
+*/node_modules
