@@ -19,15 +19,15 @@ def training(dataset, learningRate, iterations):
     X = tf.placeholder(tf.float32, name='X')
     Y = tf.placeholder(tf.float32, name='Y')
 
-    w = tf.get_variable('weights_1', initializer=tf.constant(0.0))
-    u = tf.get_variable('weights_2', initializer=tf.constant(0.0))
-    b = tf.get_variable('bias', initializer=tf.constant(0.0))
+    w = tf.get_variable('w', initializer=tf.constant(0.0))
+    u = tf.get_variable('u', initializer=tf.constant(0.0))
+    b = tf.get_variable('b', initializer=tf.constant(0.0))
 
     Y_predicted = w * X *X + u * X + b 
     loss = tf.square(Y - Y_predicted, name='loss')
     optimizer = tf.train.GradientDescentOptimizer(learning_rate=learningRate).minimize(loss)
     start = time.time()
-    writer = tf.summary.FileWriter('./graphs/linear_reg', tf.get_default_graph())
+    writer = tf.summary.FileWriter('./graphs/non_linear_reg', tf.get_default_graph())
 
     with tf.Session() as sess:
         sess.run(tf.global_variables_initializer())

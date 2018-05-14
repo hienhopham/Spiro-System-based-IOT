@@ -7,9 +7,8 @@ from rest_framework.response import Response
 from .serializers import LungEquationSerializer, LungInputValuesSerializer, LungOutputValuesSerializer, PEFSerializer, FEFSerializer, FVCSerializer, FEV1Serializer, DataEquationVisualizationSerializer
 from .objects import LungOutputValues
 from .models import LungEquation, PEF, FEF, FVC, FEV1
-from .computations import ExtractValues
 
-import learning
+import learning, computations
 import poly_regres as poly
 import math
 
@@ -60,7 +59,7 @@ class LungValuesView(APIView):
         eq_fvc = get_object_or_404(LungEquation, target_value='fvc')
         eq_fev1 = get_object_or_404(LungEquation, target_value='fev1')
 
-        PEF, FVC, FEV1, flow_curve, volumes = ExtractValues.getOutputValues(eq_pef, eq_fef, eq_fvc, eq_fev1, eng_curve, frm_times)
+        PEF, FVC, FEV1, flow_curve, volumes = computations.getOutputValues(eq_pef, eq_fef, eq_fvc, eq_fev1, eng_curve, frm_times)
         output_data = LungOutputValues(PEF, FVC, FEV1, flow_curve, volumes)
 
         return JsonResponse(LungOutputValuesSerializer(output_data).data)
