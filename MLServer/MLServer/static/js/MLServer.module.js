@@ -4,5 +4,6 @@ angular
   .module('MLServer', [
     'ui.router',
     'ngCookies',
-    'MLServer.authentication'
+    'MLServer.authentication',
+    'ngMaterial'
   ]);

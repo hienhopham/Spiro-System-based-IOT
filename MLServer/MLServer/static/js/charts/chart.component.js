@@ -3,7 +3,9 @@
 angular.module('MLServer')
   .component('chart', {
     bindings: {
-      chart: '<'
+      chart: '<',
+      startProgress: '&',
+      stopProgress: '&'
     },
     controller: 'chartController',
     controllerAs: 'vm',

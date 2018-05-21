@@ -27,6 +27,8 @@ function equationController($q, $scope, $timeout, EquationService) {
   }
 
   function train() {
+    self.startProgress();
+
     var data = {
       new_learning_rate: self.new_learning_rate ,
       new_iterations: self.iterations,
@@ -45,6 +47,7 @@ function equationController($q, $scope, $timeout, EquationService) {
         self.test_err = data.test_err;
         self.params  = data.params;
         self.onUpdate({ regressData: data.regressData });
+        self.stopProgress();
       }
     }, data);
   }
