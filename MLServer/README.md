@@ -3,6 +3,7 @@
 - Pip
 - virtualenv, virtualenvwrapper
 - Bower
+- Mysql, libmysqlclient-dev
 ...
 
 2. Installations

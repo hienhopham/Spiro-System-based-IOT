@@ -51,6 +51,11 @@ class LungEquationDetailView(APIView):
 class LungValuesView(APIView):
 
     def post(self, request):
+        if 'eng_curve' not in request.data:
+            return JsonResponse({"error": "eng_curve is required"})
+        if 'frm_times' not in request.data:
+            return JsonResponse({"error": "frm_times is required"})
+
         eng_curve = request.data["eng_curve"]
         frm_times = request.data["frm_times"]
         
@@ -94,6 +99,9 @@ class FEV1View(DatasetView):
 class EquationVisualizationView(APIView):
 
     def post(self, req):
+        if 'target_value' not in request.data:
+            return JsonResponse({"error": "target_value is required"})
+
         eq = get_object_or_404(LungEquation, target_value=req.data["target_value"])
         lower_bound = float(req.data["lower_bound"])
         higher_bound = float(req.data["higher_bound"])
@@ -109,6 +117,18 @@ class TrainingView(DatasetView):
     model = None
 
     def post(self, req):
+
+        if 'new_learning_rate' not in request.data:
+            return JsonResponse({"error": "new_learning_rate is required"})
+        if 'new_iterations' not in request.data:
+            return JsonResponse({"error": "new_iterations is required"})
+        if 'lower_bound' not in request.data:
+            return JsonResponse({"error": "lower_bound is required"})
+        if 'higher_bound' not in request.data:
+            return JsonResponse({"error": "lower_bound is required"})
+        if 'num' not in request.data:
+            return JsonResponse({"error": "num is required"})
+
         new_learning_rate = float(req.data["new_learning_rate"])
         new_iterations = int(req.data["new_iterations"])
         lower_bound = float(req.data["lower_bound"])

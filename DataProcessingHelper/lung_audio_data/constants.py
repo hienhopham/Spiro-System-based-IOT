@@ -13,7 +13,7 @@ START_TIME = 0.3 #
 RATIO_NOISE = 0.09
 SMOOTH_PARAMETER = 5
 
-# For audio proccessing
+# For audio processing
 LOWER_BOUND_FREQ = 100
 HIGHER_BOUND_FREQ = 3000
 
