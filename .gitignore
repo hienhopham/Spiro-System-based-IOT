@@ -1,4 +1,5 @@
-MLServer/static/assets
+MLServer/MLServer/static/assets
 MLServer/graphs
 *.pyc
 */node_modules
+OM2M-Plugin
