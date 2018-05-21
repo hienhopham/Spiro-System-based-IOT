@@ -19,16 +19,22 @@
   </div>
   <div class="col-sm-10 tab-content">
     <div id="{{vm.charts.pef.idTab}}" class="container tab-pane active">
-      <chart chart="vm.charts.pef"></chart>
+      <chart chart="vm.charts.pef" start-progress="vm.startProgress()" stop-progress="vm.stopProgress()"></chart>
     </div>
     <div id="{{vm.charts.fef.idTab}}" class="container tab-pane fade">
-      <chart chart="vm.charts.fef"></chart>
+      <chart chart="vm.charts.fef" start-progress="vm.startProgress()" stop-progress="vm.stopProgress()"></chart>
     </div>
     <div id="{{vm.charts.fvc.idTab}}" class="container tab-pane fade">
-      <chart chart="vm.charts.fvc"></chart>
+      <chart chart="vm.charts.fvc" start-progress="vm.startProgress()" stop-progress="vm.stopProgress()"></chart>
     </div>
     <div id="{{vm.charts.fev1.idTab}}" class="container tab-pane fade">
-      <chart chart="vm.charts.fev1"></chart>
+      <chart chart="vm.charts.fev1" start-progress="vm.startProgress()" stop-progress="vm.stopProgress()"></chart>
     </div>
+  </div>
+</div>
+
+<div class="spin" ng-show="vm.activated">
+  <div class="content">
+    <md-progress-circular md-mode="indeterminate"></md-progress-circular>
   </div>
 </div>

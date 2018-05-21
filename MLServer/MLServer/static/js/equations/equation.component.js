@@ -4,7 +4,9 @@ angular.module('MLServer')
   .component('equation', {
     bindings: {
       chart: '<',
-      onUpdate: '&'
+      onUpdate: '&',
+      startProgress: '&',
+      stopProgress: '&'
     },
     controller: 'equationController',
     controllerAs: 'vm',
