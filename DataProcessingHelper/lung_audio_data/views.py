@@ -44,7 +44,7 @@ class DataProcessingView(APIView):
         audio_data = OutputValuesSeralizer(OutputValues(eng_curve, frm_times)).data
 
         results["eng_curve"] = audio_data["eng_curve"]
-        results["frm_times"] = audio_data["eng_curve"]
+        results["frm_times"] = audio_data["frm_times"]
 
         os.remove(filename)
 

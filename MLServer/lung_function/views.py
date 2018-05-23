@@ -69,6 +69,10 @@ class LungValuesView(APIView):
 
         PEF, FVC, FEV1, flow_curve, volumes = computations.getOutputValues(
             eq_pef, eq_fef, eq_fvc, eq_fev1, eng_curve, frm_times)
+
+        if PEF <= 0 or FVC <= 0 or FEV1 <= 0:
+            return JsonResponse({"error": "Bad record"})
+
         output_data = LungOutputValues(PEF, FVC, FEV1, flow_curve, volumes)
 
         return JsonResponse(LungOutputValuesSerializer(output_data).data)
