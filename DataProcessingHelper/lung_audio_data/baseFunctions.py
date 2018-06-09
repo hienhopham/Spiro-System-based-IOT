@@ -5,8 +5,9 @@ import copy
 from scipy.fftpack import fft, ifft
 from scipy.io.wavfile import write, read
 from scipy.signal import get_window
-# import matplotlib.pyplot as plt
+
 import constants
+
 tol = 1e-14
 norm_fact = {'int16': constants.INT16_FAC, 'int32': constants.INT32_FAC,
     'int64': constants.INT64_FAC, 'float32': 1.0, 'float64': 1.0}
@@ -44,10 +45,9 @@ def wavwrite(y, fs, filename):
 	y: floating point array of one dimension, fs: sampling rate
 	filename: name of file to create
 	"""
-
 	x = copy.deepcopy(y)                         # copy array
 	# scaling floating point -1 to 1 range signal to int16 range
-	x *= INT16_FAC
+	x *= constants.INT16_FAC
 	x = np.int16(x)                              # converting to int16 type
 	write(filename, fs, x)
 
@@ -135,6 +135,7 @@ def stftAnal(x, w, N, H):
 	x: input array sound, w: analysis window, N: FFT size, H: hop size
 	returns xmX, xpX: magnitude and phase spectra
 	"""
+
 	if (H <= 0):                                   # raise error if hop size 0 or negative
 		raise ValueError("Hop size (H) smaller or equal to 0")
 
@@ -171,6 +172,7 @@ def stftSynth(mY, pY, M, H):
 	mY: magnitude spectra, pY: phase spectra, M: window size, H: hop-size
 	returns y: output sound
 	"""
+
 	hM1 = (M + 1) // 2                                   # half analysis window size by rounding
 	# half analysis window size by floor
 	hM2 = M // 2
@@ -189,6 +191,9 @@ def stftSynth(mY, pY, M, H):
 	return y
 
 def energy(mX):
+	"""
+	Compute the energy in DB of a magnitude spectra
+	"""
     linear = 10 ** (mX/20)
     min_linear = -1e-6
     linear[abs(linear) < 1e-6] = 1e-6
@@ -197,6 +202,9 @@ def energy(mX):
     return eDB
 
 def computeEngEnv(inputFile, window, M, N, H):
+	"""
+	Compute the energy in DB of a audio file
+	"""
 
     (fs, x) = wavread(inputFile)
     w = get_window(window, M)
@@ -211,6 +219,9 @@ def computeEngEnv(inputFile, window, M, N, H):
     pX[:,:low_bound] = 0
     pX[:,high_bound:] = 0
 
+	"""
+	Reconstruct file after transforming and filtering
+	"""
     # y = stftSynth(mX, pX, M, H)
     # wavwrite(y, fs, '/home/hienpham/'+os.path.basename(inputFile)[:-4] + '_synth.wav')
 

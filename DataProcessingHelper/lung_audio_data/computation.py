@@ -5,11 +5,20 @@ import math
 import constants
 
 def smooth(y, box_pts):
+	"""
+	Smooth an energy curve by take the average of box_pts consecutive points
+	"""
     box = np.ones(box_pts)/box_pts
     y_smooth = np.convolve(y, box, mode='same')
     return y_smooth
 
 def cutFlow(flow, t_start, ratio_noise):
+	"""
+	Cut the flow from when the user starts exhaling to the end of the expiratory.
+    flow: floating point array of one dimension
+    ratio_noise: the rate that all the smaller values are noise.
+	"""
+
     delta_t = float(constants.TOTAL_TIME)/float(flow.size)
     cutted_points = int(math.floor(t_start/delta_t) + 1)
     cutted_flow = flow[11:-11]
@@ -18,15 +27,17 @@ def cutFlow(flow, t_start, ratio_noise):
     global_min = np.min(cutted_flow)
     i_max = np.where(flow == global_max)[0][0]
 
+    # find the end point form the peak of the flow
     end = i_max
     while end < flow.size:
-        if flow[end] <= ratio_noise*global_max+(1 - ratio_noise)*global_min:
+        if flow[end] <= ratio_noise * global_max + (1 - ratio_noise) * global_min:
             break
         else:
             end = end + 1
     if end == flow.size:
         end = flow.size - 5
 
+    # then find the start point
     start = i_max
     while start > 0:
         if flow[start] < flow[end]:
