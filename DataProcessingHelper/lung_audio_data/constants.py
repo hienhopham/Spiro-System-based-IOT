@@ -1,6 +1,5 @@
 import os
 
-
 INT16_FAC = (2**15)-1
 INT32_FAC = (2**31)-1
 INT64_FAC = (2**63)-1
@@ -21,7 +20,3 @@ WINDOW_SIZE = 401
 FFT_SIZE = 4096
 HOP_SIZE = 200
 
-# For OM2M
-APP_ID = "SPIRO"
-USER_PASS_OM2M = "admin:admin"
-URL_OM2M = "http://127.0.0.1:8080/~/in-cse/in-name/SPIRO/DATA"
