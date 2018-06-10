@@ -191,9 +191,9 @@ def stftSynth(mY, pY, M, H):
 	return y
 
 def energy(mX):
-	"""
-	Compute the energy in DB of a magnitude spectra
-	"""
+    """
+    Compute the energy in DB of a magnitude spectra
+    """
     linear = 10 ** (mX/20)
     min_linear = -1e-6
     linear[abs(linear) < 1e-6] = 1e-6
@@ -202,9 +202,9 @@ def energy(mX):
     return eDB
 
 def computeEngEnv(inputFile, window, M, N, H):
-	"""
-	Compute the energy in DB of a audio file
-	"""
+    """
+    Compute the energy in DB of a audio file
+    """
 
     (fs, x) = wavread(inputFile)
     w = get_window(window, M)
@@ -219,9 +219,9 @@ def computeEngEnv(inputFile, window, M, N, H):
     pX[:,:low_bound] = 0
     pX[:,high_bound:] = 0
 
-	"""
-	Reconstruct file after transforming and filtering
-	"""
+    """
+    Reconstruct file after transforming and filtering
+    """
     # y = stftSynth(mX, pX, M, H)
     # wavwrite(y, fs, '/home/hienpham/'+os.path.basename(inputFile)[:-4] + '_synth.wav')
 

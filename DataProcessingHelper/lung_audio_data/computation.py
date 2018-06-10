@@ -5,19 +5,19 @@ import math
 import constants
 
 def smooth(y, box_pts):
-	"""
-	Smooth an energy curve by take the average of box_pts consecutive points
-	"""
+    """
+    Smooth an energy curve by take the average of box_pts consecutive points
+    """
     box = np.ones(box_pts)/box_pts
     y_smooth = np.convolve(y, box, mode='same')
     return y_smooth
 
 def cutFlow(flow, t_start, ratio_noise):
-	"""
-	Cut the flow from when the user starts exhaling to the end of the expiratory.
+    """
+    Cut the flow from when the user starts exhaling to the end of the expiratory.
     flow: floating point array of one dimension
     ratio_noise: the rate that all the smaller values are noise.
-	"""
+    """
 
     delta_t = float(constants.TOTAL_TIME)/float(flow.size)
     cutted_points = int(math.floor(t_start/delta_t) + 1)
