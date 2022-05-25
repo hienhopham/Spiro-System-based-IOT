@@ -28,7 +28,7 @@ oauthlib==2.0.7
 pbr==4.0.2
 pkg-resources==0.0.0
 protobuf==3.5.2.post1
-PyJWT==1.6.1
+PyJWT==2.4.0
 python-openid==2.2.5
 pytz==2018.4
 rcssmin==1.0.6
